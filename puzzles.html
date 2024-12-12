@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(255, 157, 0);
+    }
+
+    #q{
+        padding: 50px;
+        border-radius: 20px;
+        border: 10px solid rgba(23, 16, 0, 0.427);
+        background-color:rgb(230, 191, 154) ;
+    }
+    #question,#c1,#c2,#c3,#c4{
+        font-size: large;
+    }
+    #valider{
+        background-color: green;
+        color: white;
+    }
+    #valider,#annuler{
+        padding:10px 30px 10px 30px;
+        
+        margin: 4px;
+        font-size: large;
+        border-radius: 20px;
+        border: 2px solid rgba(41, 3, 38, 0.318);
+        box-shadow: -2px 4px 5px 1px rgb(3, 57, 93);
+    }
+    #annuler{
+        background-color: red;
+        color: white;
+    }
+    #annuler:hover{
+        background-color: rgb(232, 3, 3);
+        padding:11px 31px 11px 31px;
+        color: white;
+    }
+    #valider:hover{
+        background-color: rgb(10, 102, 10);
+        padding:11px 31px 11px 31px;
+        color: white;
+    }
+    li{
+        background-color: white;
+        margin: 5px;
+        border-radius: 20px;
+        padding: 10px;
+        border: 1px solid black;
+        
+    }
+    li:hover
+    {
+        background-color: rgb(145, 184, 248);
+        
+    }
+    #btns{
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    #question{
+        background-color: rgb(231, 149, 8);
+        padding: 20px;
+        border-radius: 20px;
+        border: 2px solid rgba(36, 18, 0, 0.709);
+    }
+    
+
+</style>
+<body>
+    <div id="q">
+        <p id="question"> اللغز رقم 1: </p>
+        <p id="choix">
+            <ol>
+                <li id="1" onclick="calculer(1,this)">الخيار اللأول</li>
+                <li id="2" onclick="calculer(2,this)">الخيار الثاني</li>
+                <li id="3" onclick="calculer(3,this)">الخيار الثالث</li>
+                
+            </ol>
+        </p>
+        <div id="btns">
+            <button id="valider" onclick="next()">تأكيد </button>
+            <button id="annuler" onclick="reculer()">تراجع </button>
+        </div>
+    </div>
+    <script>
+        var cp=0;
+        var res=0;
+        var q= document.getElementById("question");
+        var choix= document.getElementsByTagName("li");
+
+        let quiz=["من قائل هذه العبارة (لو كان الفقر رجلًا لقتلته)؟",
+        "من هو العضو الموجود في جسم الإنسان، والمسؤول عن إنتاج كرات الدم الحمراء؟",
+        "ماذا يطلق على الغاز الذي يخرج مع عوادم السيارات؟",
+        "ما هي المدينة الملقبة بلقب التلال السبعة؟",
+        "ما هو عدد الأرجل الموجدة في الخنفساء؟",
+        "في أي دولة تقع صحاري فيكتوريا الكبرى؟",
+        "ما هي الصفة التي يتم إطلاق عليه مسمى قنوط؟",
+        "ما هي الحاسة المميزة عند النسور؟",
+        "ما هي الدولة التي لها 3 عواصم؟",
+        "من هي الدولة التي تعرف عاصمتها بتبليسي؟",
+        "ما هي المدينة الملقبة بمدينة النور؟",
+        "ما هي المدينة التي كانت كل المدن القديمة تعمل على التوصيل لها؟",
+        "الإمبراطور الروماني الذي عزم على إشعال حريق روما؟"
+    ];
+        q.innerHTML = quiz[0];
+
+        let q1=["عمر بن الخطاب", "عثمان بن عفان" ,"علي بن أبي طالب" ,
+        "الكبد ","الطحال", "المعدة" ,
+        "النيتروجين" ,"الهيدروجين"," أول أكسيد الكربون", 
+        "لندن" ,"روما" ,"جنيف", 
+        "8" ,"6" ,"7", 
+        "روسيا" ,"كندا" ,"استراليا", 
+        "الكسل" ,"النشاط" ,"اليأس", 
+        "البصر" ,"التذوق" ,"الشم", 
+        "جنوب افريقيا" ,"الهند" ,"الصين", 
+        "أرمنيا" ,"قرغيزستان" ,"جورجيا", 
+        "بروكسيل" ,"برلين" ,"باريس", 
+        "القسطنطينية" ,"الاسكندرية" ,"روما", 
+        "نيرون" ,"دقلديانوس" ,"ساويرس سبتيموس"];
+
+        for (let index = 0; index < choix.length; index++)
+        {
+            const element = choix[index];
+            element.innerHTML = q1[index];
+        }
+        let resp=[1,2,3,2,2,3,3,3,1,3,3,3,1];
+        var valc = 0;
+        function calculer(val,li)
+        {
+                valc =val;
+                li.style.backgroundColor= "lime"
+               if(val== resp[cp]) res++;
+               
+        }
+        function next()
+        {
+            
+
+            cp++;
+            if(cp==13) 
+            {
+               
+                let doc = document.body;
+                let content = document.getElementById("q");
+                content.remove();
+                doc.innerHTML="<div id=\"res\"><p id=\"resp\"> نتيجتك النهائية هي : "+res+"/13</p></div>"
+                let div = document.getElementById("res");
+                let p = document.getElementById("resp");
+                div.style.backgroundColor="beige";
+                div.style.borderRadius="20px";
+                div.style.border="2px solid brown";
+                div.style.padding="100px";
+                div.style.margin="10%";
+                p.style.fontSize="30px"
+                
+            }
+            else
+            {
+                q.innerHTML = quiz[cp];
+                for (let index = 0; index < choix.length; index++)
+                {
+                    const element = choix[index];
+                    element.innerHTML = q1[index+(cp*3)];
+                    element.style.backgroundColor= "white";
+                }
+            }
+        }
+        function reculer()
+        {
+            
+            if(valc== resp[cp]) res--;
+            for (let index = 0; index < choix.length; index++)
+                {
+                    const element = choix[index];
+                    element.style.backgroundColor= "white";
+                }
+        }
+    </script>
+    
+
+
+</body>
+</html>
